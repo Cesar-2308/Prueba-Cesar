@@ -17,15 +17,23 @@ export class UsersController {
     getUsers(): Promise<User[]> {
       return this.usersService.getUsers();
 }
+  @Get(':id')
+  @ApiOperation({ description: 'Obtener un usuario por ID' })
+  @ApiParam({ name: 'id', type: 'number', description: 'ID del usuario a obtener' })
+  @ApiResponse({ status: 200, description: 'Usuario encontrado' })
+  @ApiResponse({ status: 404, description: 'Usuario no encontrado' })
+  getUserById(@Param('id', ParseIntPipe) Id: number) {
+    return this.usersService.getUser(Id);
+  }
 
   @Get(':nombre')
   @ApiOperation({ description: 'Obtener un usuario por Nombre' })
   @ApiParam({ name: 'nombre', type: 'string', description: 'Nombre del usuario a obtener' })
   @ApiResponse({ status: 200, description: 'Usuario encontrado' })
   @ApiResponse({ status: 404, description: 'Usuario no encontrado' })
-    getUser(@Param('nombre') Nombre: string ) { 
-      return this.usersService.getUser(Nombre);
-}
+    getUserNombre(@Param('nombre') Nombre: string ) { 
+      return this.usersService.getUserNombre(Nombre);
+} 
 
   @Get('estado/inactivo')
   getInactivoUsers(): Promise<User[]> {

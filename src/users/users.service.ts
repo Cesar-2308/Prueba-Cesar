@@ -40,6 +40,14 @@ export class UsersService {
       }
     })
   }
+  getUser(Id: number) {
+    return this.userRepository.findOne({
+      where: {
+        Id: Id,
+        Estado: EstadoUsuario.ACTIVO
+      }
+    })
+  }
 
   getInactivoUsers() {
     return this.userRepository.find({
@@ -49,13 +57,13 @@ export class UsersService {
     })
   }
 
-  getUser(nombre: string) {
+    getUserNombre(nombre: string) {
     return this.userRepository.findOne({
       where: {
         Nombre: nombre
       }
     })
-  }
+  } 
 
   async deleteUser(Id: number) {
     await this.userRepository.update(Id,{
